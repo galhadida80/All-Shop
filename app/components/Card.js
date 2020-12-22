@@ -7,6 +7,7 @@ import colors from '../config/color'
 export default function Card({title,image,subTitle}) {
     return (
         <View style={styles.card}>
+           <Image style={styles.image} source={image}/>
             <View style={styles.detailcontainer}>
             <AppText style={styles.title}>{title}</AppText>
             <AppText style={styles.subTitle}>{subTitle}</AppText>  

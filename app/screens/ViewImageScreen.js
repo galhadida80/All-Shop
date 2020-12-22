@@ -1,19 +1,22 @@
 import React from 'react';
-import { Image , StyleSheet, View } from 'react-native';
+import { Image , StyleSheet, View ,TouchableOpacity} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 
 import colors from '../config/color';
 
-function ViewImageScreen(propg) {
+function ViewImageScreen(props) {
 
     return(
     <View style={styles.contianter}>
+
         <View style={styles.closeIcon}>
      
              <AntDesign name="close" size={40} color="white" />
         </View>
         <View style={styles.deleteIcon}>
+
         <AntDesign name="delete" size={24} color="white" />
+
         </View>
 
         <Image 
