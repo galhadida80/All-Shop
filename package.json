@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo/vector-icons": "^12.0.2",
     "@react-native-community/hooks": "^2.6.0",
+    "@react-native-community/picker": "^1.8.1",
     "expo": "~40.0.0",
     "expo-constants": "^9.3.5",
     "expo-image-picker": "~9.2.0",
@@ -18,7 +19,8 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-gesture-handler": "^1.8.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "@react-native-community/datetimepicker": "3.0.4"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
