@@ -9,6 +9,6 @@ export default {
 text:
 {
     color: colors.dark,
-    fontSize: 20
+    fontSize: 15
 
 }};
