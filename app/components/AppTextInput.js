@@ -1,33 +1,65 @@
-import React from 'react';
-import { View ,StyleSheet} from 'react-native';
-import defaultstyles from '../config/styles';
+import React from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { MaterialCommunityIcons} from '@expo/vector-icons'; 
-import { TextInput } from 'react-native-gesture-handler';
-import colors from '../config/color';
+import Colors from "../config/color";
 
-function AppTextInput({icon,...otherProps}) {
-    return (
-        <View style={styles.container}>
-        {icon &&<MaterialCommunityIcons name={icon} size={20} color={colors.meduim} style={styles.icon}/>}
-        <TextInput style={defaultstyles.text} {...otherProps}/>
-        </View>
-    );
+export default function AppTextInput({
+  leftIcon,
+  width = "100%",
+  rightIcon,
+  handlePasswordVisibility,
+  ...otherProps
+}) {
+  return (
+    <View style={[styles.container, { width }]}>
+      {leftIcon && (
+        <MaterialCommunityIcons
+          name={leftIcon}
+          size={20}
+          color={Colors.mediumGrey}
+          style={styles.icon}
+        />
+      )}
+      <TextInput
+        style={styles.input}
+        placeholderTextColor={Colors.mediumGrey}
+        {...otherProps}
+      />
+      {rightIcon && (
+        <TouchableOpacity onPress={handlePasswordVisibility}>
+          <MaterialCommunityIcons
+            name={rightIcon}
+            size={20}
+            color={Colors.mediumGrey}
+            style={styles.rightIconStyles}
+          />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: colors.light,
-        borderRadius: 25,
-        flexDirection: "row",
-        width: "100%",
-        padding: 15,
-        marginVertical: 10
-        } ,
-        icon: {
-            marginRight : 10,
-            marginTop : 3
-        }
-    })
+  container: {
+    backgroundColor: Colors.light,
+    borderRadius: 25,
+    flexDirection: "row",
+    padding: 15,
 
-export default AppTextInput;
+    marginVertical: 10,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    width: "100%",
+    fontSize: 18,
+    color: Colors.black,
+  },
+  rightIconStyles: {
+    alignSelf: "center",
+    marginLeft: 10,
+  },
+});

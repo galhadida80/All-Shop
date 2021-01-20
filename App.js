@@ -1,15 +1,6 @@
-import React from 'react';
-import Screen from './app/components/Screen';
+import React from "react";
 
-import {NavigationContainer} from '@react-navigation/native';
-
-import navigationTheme from './app/navigation/navigationTheme';
-import AppNavigator from './app/navigation/AppNavigator';
-
+import Providers from "./app/navigation";
 export default function App() {
-  return (
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator />
-    </NavigationContainer>
-  );
+  return <Providers />;
 }
