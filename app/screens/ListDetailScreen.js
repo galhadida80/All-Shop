@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -14,37 +14,19 @@ import * as firebase from "firebase";
 
 function ListDetailScreen({ route }) {
   const listing = route.params;
-  const [imageUrl, setImageUrl] = useState(null);
-
-  // useEffect(() => {
-  //   const ref = firebase
-  //     .storage()
-  //     .ref(
-  //       "images/" +
-  //         listing.title +
-  //         "/" +
-  //         "18a0c34a-e43a-4d80-b8ac-d4cb62559fb8.jpg"
-  //     )
-  //     .getDownloadURL()
-  //     .then((url) => {
-  //       setImageUrl(url);
-  //     }); //name in storage in firebase console
-
-  //   console.log(imageUrl);
-  // }, []);
-
+  const [image, setimage] = useState(listing.url);
   return (
     <View>
       <KeyboardAvoidingView
         behavior="position"
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
       >
-        <TouchableOpacity onPress={() => console.log(listing.imageUrl)}>
+        <TouchableOpacity onPress={() => console.log(image)}>
           <Image
             style={styles.image}
             tint="light"
-            preview={listing.imageUrl}
-            uri="https://firebasestorage.googleapis.com/v0/b/all-shop80.appspot.com/o/images%2FGfgh%2F18a0c34a-e43a-4d80-b8ac-d4cb62559fb8.jpg?alt=media&token=cdb7c70b-a5aa-41a4-acb8-1c9824d5be05"
+            // preview={{ uri: listing.url }}
+            uri={listing.url}
           ></Image>
         </TouchableOpacity>
         <View style={styles.detailsContainer}>

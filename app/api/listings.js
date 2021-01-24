@@ -1,5 +1,5 @@
 import FormData from "form-data";
-import { pushPost } from "../components/Firebase/firebase";
+import { pushPost } from "..//Firebase/firebase";
 
 const ENDPOINT = "/listings";
 

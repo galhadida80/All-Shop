@@ -19,14 +19,14 @@ export default function Card({
           style={styles.image}
           tint="light"
           uri={imageUrl}
-          preview={{ uri: thumbailUrl }}
+          // preview={imageUrl}
         />
         <View style={styles.detailcontainer}>
           <AppText style={styles.title} numberOfLines={1}>
             {title}
           </AppText>
           <AppText style={styles.subTitle} numberOfLines={2}>
-            @s{subTitle}
+            {subTitle}
           </AppText>
         </View>
       </View>

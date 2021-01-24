@@ -5,8 +5,8 @@ import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import color from "../config/color";
-import useAuth from "../auth/useAuth";
-import { auth, logout } from "../components/Firebase/firebase";
+import { auth } from "../Firebase/firebase";
+import { logout } from "../Firebase/FunFirebase";
 
 const menuItems = [
   {
@@ -15,6 +15,7 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: color.primary,
     },
+    targetScreen: "My Listings",
   },
   {
     title: "My Messages",
@@ -51,7 +52,9 @@ function AccountScreen({ navigation }) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => navigation.navigate(item.targetScreen)}
+              onPress={() =>
+                navigation.navigate(item.targetScreen, { listprivate: true })
+              }
             />
           )}
         />

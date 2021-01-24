@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -15,7 +15,8 @@ import CatogeryPickerItem from "../components/CatogeryPickerItem";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import useLocation from "../hooks/useLocation";
 import UploadScreen from "./UploadScreen";
-import { pushPost } from "../components/Firebase/firebase";
+import { uploadFileToFireBase } from "../Firebase/upload";
+import { useUpload, monitorUpload } from "../hooks/useUpload";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -42,33 +43,36 @@ const categories = [
   { label: "Other", value: 9, icon: "blur", color: "#7f8c8d" },
 ];
 
-function ListingEditScreen() {
+const ListingEditScreen = () => {
   const location = useLocation();
 
-  const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [downloadURL, setDownloadURL] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState();
 
-  const handleSubmit = async (listing, { resetForm }) => {
-    setProgress(0);
-    setUploadVisible(true);
-    const gal = await pushPost({ ...listing, location });
-    if (!gal) {
-      setUploadVisible(false);
-      return alert("Could not save the listing.");
-    } else {
-      setUploadVisible(true);
-      resetForm();
-      return alert("Succsess");
-    }
+  const handleSubmit = (listing, { resetForm }) => {
+    // setUploadVisible(true);
+
+    monitorUpload(
+      {
+        ...listing,
+        location,
+      },
+      (progress) => setProgress(progress),
+      (uploading) => setUploading(uploading)
+    );
+    console.log("progress" + progress);
   };
 
   return (
     <Screen>
-      {/* <UploadScreen
-        onDone={() => setUploadVisible(false)}
+      <UploadScreen
+        onDone={() => setUploading(false)}
         progress={progress}
-        visible={uploadVisible}
-      /> */}
+        visible={uploading}
+      />
       <AppForm
         style={styles.imagepicker}
         initialValues={{
@@ -109,7 +113,7 @@ function ListingEditScreen() {
       </AppForm>
     </Screen>
   );
-}
+};
 
 export default ListingEditScreen;
 

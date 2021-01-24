@@ -6,7 +6,6 @@ import FeedNavigator from "./FeedNaviagtor";
 import AccountNavigator from "./AccountNavigator";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NewListingButton from "./NewListingButton";
-import { auth } from "../components/Firebase/firebase";
 
 // import useNotifications from "../hooks/useNotifications";
 

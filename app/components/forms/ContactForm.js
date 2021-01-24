@@ -4,7 +4,6 @@ import { View, StyleSheet, Keyboard, Alert } from "react-native";
 import * as Yup from "yup";
 import { Notifications } from "expo";
 
-import messagesApi from "../../api/messages";
 import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 
 // const propTypes = {
@@ -21,16 +20,16 @@ const ContactForm = ({ listing }) => {
   const handleSubmit = async ({ message }, { resetForm }) => {
     Keyboard.dismiss();
 
-    const result = await messagesApi.send(message, listing.id);
+    // const result = await messagesApi.send(message, listing.id);
 
-    if (!result.ok) {
-      console.log("Error sending message", result);
-      console.log(listing.id);
-      return Alert.alert(
-        "Error",
-        "Could not send the message. Please try again."
-      );
-    }
+    // if (!result.ok) {
+    //   console.log("Error sending message", result);
+    //   console.log(listing.id);
+    //   return Alert.alert(
+    //     "Error",
+    //     "Could not send the message. Please try again."
+    //   );
+    // }
 
     resetForm();
 

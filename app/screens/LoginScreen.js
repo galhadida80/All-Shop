@@ -8,10 +8,8 @@ import {
   AppFormField,
   SubmitButton,
 } from "../components/forms";
-import authApi from "../api/auth";
-import useAuth from "../auth/useAuth";
 
-import { loginWithEmail } from "../components/Firebase/firebase";
+import { loginWithEmail } from "../Firebase/FunFirebase";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -20,25 +18,36 @@ const validationSchema = Yup.object().shape({
 
 function LoginScreen() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [rightIcon, setRightIcon] = useState("eye");
-  const [loginError, setLoginError] = useState("");
-  // const { login } = useAuth();
-  // const [loginFailed, SetLoginFailed] = useState(false);
+  const [rightIcon, setRightIcon] = useState("eye"); // const { login } = useAuth();
+  const [loginFailed, SetLoginFailed] = useState(false);
 
-  // const handleSubmit = async ({ email, password }) => {
-  //   const result = await authApi.login(email, password);
-  //   if (!result.ok) return SetLoginFailed(true);
-  //   SetLoginFailed(false);
-  //   login(result.data);
-  // };
   async function handleOnLogin(values) {
     const { email, password } = values;
 
     try {
       await loginWithEmail(email, password);
     } catch (error) {
-      setLoginError(error.message);
+      SetLoginFailed(true);
       console.log(error.message);
+    }
+  }
+  function handlePasswordVisibility() {
+    if (rightIcon === "eye") {
+      setRightIcon("eye-off");
+      setPasswordVisibility(!passwordVisibility);
+    } else if (rightIcon === "eye-off") {
+      setRightIcon("eye");
+      setPasswordVisibility(!passwordVisibility);
+    }
+  }
+
+  function handleConfirmPasswordVisibility() {
+    if (confirmPasswordIcon === "eye") {
+      setConfirmPasswordIcon("eye-off");
+      setConfirmPasswordVisibility(!confirmPasswordVisibility);
+    } else if (confirmPasswordIcon === "eye-off") {
+      setConfirmPasswordIcon("eye");
+      setConfirmPasswordVisibility(!confirmPasswordVisibility);
     }
   }
   return (
@@ -49,7 +58,7 @@ function LoginScreen() {
         onSubmit={handleOnLogin}
         validationSchema={validationSchema}
       >
-        {/* <ErrorMessage visible={loginFailed} error="invaild email or password" /> */}
+        <ErrorMessage visible={loginFailed} error="invaild email or password" />
 
         <AppFormField
           autoCapitalize="none"
@@ -61,13 +70,17 @@ function LoginScreen() {
         />
 
         <AppFormField
+          name="password"
+          leftIcon="lock"
+          placeholder="Enter password"
           autoCapitalize="none"
           autoCorrect={false}
-          name="password"
-          placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry={passwordVisibility}
           textContentType="password"
+          rightIcon={rightIcon}
+          handlePasswordVisibility={handlePasswordVisibility}
         />
+
         <SubmitButton title="Login" />
       </AppForm>
     </Screen>

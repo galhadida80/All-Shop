@@ -12,7 +12,7 @@ import Screen from "../components/Screen";
 
 // import ActivityInDiactior from "../assets/animations/ActivityInDiactior";
 
-import { registerWithEmail } from "../components/Firebase/firebase";
+import { registerWithEmail } from "../Firebase/FunFirebase";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
